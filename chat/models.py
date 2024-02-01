@@ -2,6 +2,11 @@ from django.db import models
 from authendications.models import User
 # Create your models here.
 
+# class FriendsList(models.Model):
+#     user_id = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True,related_name="user_id")
+#     friends_id = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True,related_name="friends_id")
+
+
 class Message(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True,related_name="sender_message_set")
     receiver = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True,related_name="reciever_message_set")

@@ -19,7 +19,7 @@ class UserListing(ListAPIView):
 class PreviousMessagesView(ListAPIView):
     serializer_class = MessageSerializer
     pagination_class = None
-
+    permission_classes = (IsAuthenticated,)
     def get_queryset(self):
         user1 = int(self.kwargs['user1'])
         user2 = int(self.kwargs['user2'])

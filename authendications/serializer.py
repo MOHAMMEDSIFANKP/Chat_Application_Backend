@@ -18,6 +18,5 @@ class RegistrationSerialzer(ModelSerializer):
             'password': {'write_only': True}
         }
     def create(self, validated_data):
-        password = validated_data.get('password')
-        validated_data['password'] = make_password(password)
-        return super().create(validated_data)
+        user = User.objects.create_user(**validated_data)
+        return user
