@@ -2,9 +2,6 @@ from django.db import models
 from authendications.models import User
 # Create your models here.
 
-# class FriendsList(models.Model):
-#     user_id = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True,related_name="user_id")
-#     friends_id = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True,related_name="friends_id")
 
 
 class Message(models.Model):
@@ -18,3 +15,10 @@ class Message(models.Model):
         return f'{self.sender.first_name}-{self.sender.last_name}'
 
 
+class FriendsList(models.Model):
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name="user_id")
+    friends_id = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name="friends_id")
+    is_connected = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    class Meta:
+        unique_together = [['user_id', 'friends_id']]

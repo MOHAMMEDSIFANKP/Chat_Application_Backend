@@ -27,8 +27,12 @@ class User(AbstractUser):
     username = models.CharField(max_length=150, null=True, blank=True)
     email = models.EmailField(max_length=250, unique=True)
     profile_image = models.ImageField(upload_to='profile_image', null=True, blank=True)
-
+    place = models.CharField(max_length=150,null=True,blank=True)
+    district = models.CharField(max_length=150,null=True,blank=True)
+    state = models.CharField(max_length=150,null=True,blank=True)
+    bio = models.TextField()
+    
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
-
+    
     objects = CustomUserManager()

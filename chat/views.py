@@ -1,10 +1,11 @@
 from django.shortcuts import render
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import ListAPIView,RetrieveUpdateAPIView
 from rest_framework.filters import SearchFilter
 from .serializers import *
 from authendications.models import User
 from django.db.models import Q
 from rest_framework.permissions import IsAuthenticated
+from .models import *
 
 class UserListing(ListAPIView):
     serializer_class = UserListserializer
@@ -30,4 +31,31 @@ class PreviousMessagesView(ListAPIView):
             thread_name=thread_name
         )
         return queryset
-    
+
+
+class AllUserList(ListAPIView):
+    serializer_class = AllUserListSerializer
+    permission_classes = (IsAuthenticated,)
+    filter_backends = [SearchFilter]
+    search_fields = ['first_name', 'last_name', 'email']
+
+    def get_queryset(self):
+        user_id = int(self.kwargs['id'])
+        return User.objects.all().exclude(Q(id=user_id) | Q(is_superuser=True) |Q(is_active=False))
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['user_id'] = int(self.kwargs['id'])
+        return context
+
+class UserDetails(RetrieveUpdateAPIView):
+    serializer_class = UserDetailSerialzer
+    queryset = User.objects.all()
+    lookup_field = 'id'
+    # permission_classes = (IsAuthenticated,)
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['id'] = int(self.kwargs['id'])
+        context['user_id'] = int(self.kwargs['user_id'])
+        return context
