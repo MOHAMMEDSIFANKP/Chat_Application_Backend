@@ -7,5 +7,9 @@ urlpatterns = [
     path('all-user-list/<int:id>/', AllUserList.as_view(), name='UserListing'),
     path('user-details/<int:id>/<int:user_id>', UserDetails.as_view(), name='UserListing'),
 
+    path('connect/', ConnectionRequestView.as_view(), name='ConnectView'),
+    path('accepted/', AcceptedRequestView.as_view(), name='AcceptedtView'),
+    path('remove/', RemoveFriendsView.as_view(), name='RemoveView'),
+
 
 ]

@@ -18,7 +18,6 @@ class Message(models.Model):
 class FriendsList(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name="user_id")
     friends_id = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name="friends_id")
-    is_connected = models.BooleanField(default=False)
+    is_request = models.BooleanField(default=False)
+    is_accept = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
-    class Meta:
-        unique_together = [['user_id', 'friends_id']]

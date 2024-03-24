@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager, Permission
-
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
@@ -31,7 +30,8 @@ class User(AbstractUser):
     district = models.CharField(max_length=150,null=True,blank=True)
     state = models.CharField(max_length=150,null=True,blank=True)
     bio = models.TextField()
-    
+    friends_list = models.ManyToManyField('self')
+    blocked_list = models.ManyToManyField('self')
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
     
