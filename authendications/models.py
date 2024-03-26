@@ -28,6 +28,7 @@ class User(AbstractUser):
     profile_image = models.ImageField(upload_to='profile_image', null=True, blank=True)
     place = models.CharField(max_length=150,null=True,blank=True)
     district = models.CharField(max_length=150,null=True,blank=True)
+    is_google = models.BooleanField(default=False)
     state = models.CharField(max_length=150,null=True,blank=True)
     bio = models.TextField()
     friends_list = models.ManyToManyField('self')

@@ -22,7 +22,8 @@ media
 
 # C extensions
 *.so
-
+.profile_image
+.profile_image/
 # Distribution / packaging
 .Python
 build/

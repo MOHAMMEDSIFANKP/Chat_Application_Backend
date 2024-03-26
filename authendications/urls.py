@@ -8,4 +8,7 @@ urlpatterns = [
     path('googeregister/', GoogleRegistration.as_view(), name='Googeregister'),
     path('logout/', LogoutView.as_view(), name ='logout'),
     path('userdetils/<int:id>/', UserDetils.as_view(), name='UserDetils'),
+   
+    path('changepassword/', ChangePassword.as_view(), name='ChangePassword'),
 ]
+

@@ -21,3 +21,12 @@ class FriendsList(models.Model):
     is_request = models.BooleanField(default=False)
     is_accept = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class Notification(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    message = models.TextField()
+    url_path = models.CharField(max_length=100,blank=True,null=True)
+    type_list = models.CharField(max_length=100,blank=True,null=True)
+    is_read = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)

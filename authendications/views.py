@@ -47,6 +47,7 @@ def create_jwt_pair_tokens(user):
     refresh = RefreshToken.for_user(user)
     refresh['email'] = user.email
     refresh['is_active'] = user.is_active
+    refresh['is_google'] = user.is_google
 
    
     access_token = str(refresh.access_token)
@@ -74,6 +75,26 @@ class LogoutView(APIView):
 
 class UserDetils(RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthenticated,)
-    serializer_class = RegistrationSerialzer
+    serializer_class = UserProfileSerializer
     queryset = User.objects.all()
     lookup_field = 'id'
+
+from django.contrib.auth.hashers import check_password
+
+class ChangePassword(APIView):
+    def post(self,request):
+        old_password = request.data.get('old_password')
+        new_password = request.data.get('new_password')
+        user_id = request.data.get('user_id')
+        print(old_password,new_password,user_id)
+        if old_password and new_password and user_id:
+            user = User.objects.get(id = user_id)
+            if check_password(old_password, user.password):
+                user.set_password(new_password)
+                user.save()
+                return Response({'message':"Password updated successfully"},status=status.HTTP_200_OK)
+            else:
+                return Response({'message':"Invalid old password"},status=status.HTTP_404_NOT_FOUND)
+        else:
+            return Response({'message':"Fields are blank"},status=status.HTTP_404_NOT_FOUND)
+
