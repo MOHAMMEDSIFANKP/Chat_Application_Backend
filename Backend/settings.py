@@ -130,7 +130,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+import os
 MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # Default primary key field type
@@ -159,8 +161,8 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            "hosts": [(config('redis'))],
-            # "hosts": [('localhost', 6379)],
+            # "hosts": [(config('redis'))],
+            "hosts": [('localhost', 6379)],
         },
     },
 }

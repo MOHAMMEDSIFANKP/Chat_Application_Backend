@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.generics import CreateAPIView,RetrieveUpdateDestroyAPIView
+from rest_framework.generics import CreateAPIView,RetrieveUpdateDestroyAPIView,UpdateAPIView
 from .serializer import *
 
 
@@ -98,3 +98,7 @@ class ChangePassword(APIView):
         else:
             return Response({'message':"Fields are blank"},status=status.HTTP_404_NOT_FOUND)
 
+class ProfileimageUpdateView(UpdateAPIView):
+    serializer_class = ProfileimageupdateSerializer
+    queryset = User.objects.all()
+    lookup_field = 'id'

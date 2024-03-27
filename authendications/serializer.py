@@ -55,3 +55,7 @@ class UserProfileSerializer(ModelSerializer):
             }
             list.append(data)
         return list
+class ProfileimageupdateSerializer(ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['profile_image']
